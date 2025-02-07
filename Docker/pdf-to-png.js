@@ -7,7 +7,6 @@ const rimraf = require('rimraf')
 const os = require('os')
 const gs = require('ghostscript')
 const admin = require('firebase-admin');
-const axios = require('axios')
 
 const app = express()
 app.use(bodyParser.json()) // parse JSON bodies
@@ -110,8 +109,8 @@ async function convertPdfToImage(pdfPath) {
       gs()
         .batch()
         .nopause()
-        .device('png256') // Use 256-color PNG for speed
-        .resolution(72)   // Reduce resolution to 72 DPI
+        .device('png16m') 
+        .resolution(300)  
         .output(quotedImagePath) // Use quoted paths
         .input(quotedPdfPath)    // Use quoted paths
         .exec((err, stdout, stderr) => {
